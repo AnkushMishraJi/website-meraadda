@@ -1,38 +1,70 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap');
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+a {
+  color: black !important;
+}
+
+.brand-logo,
+h2 {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.auth-card {
+  padding: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card {
+  max-width: 400px;
+  margin: 70px auto;
+}
+.btn {
+  margin-top: 15px;
+}
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid rgb(84, 132, 196) !important;
+  box-shadow: 0 1px 0 0 rgb(42, 157, 252) !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.profilebox {
+  margin: 40px 80px;
+  padding-bottom: 40px;
+  justify-content: space-around;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-bottom: solid 2px gray;
+}
+.profilebox img {
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+}
+.gallery {
+  width: 800px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+}
+.gallery img {
+  width: 300px;
+  height: 300px;
 }
 
-.App-link {
-  color: #61dafb;
+.post-bar {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  padding: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.home-card {
+  max-width: 800px;
+}
+
+.checkbox{
+  padding: 10px,!important
 }

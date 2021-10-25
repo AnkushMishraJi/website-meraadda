@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { UserContext } from "../../App";
 import M from "materialize-css";
-
-function Signup() {
+function Signin() {
+//   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
-  const [hotelName, setHotelName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [location, setLocation] = useState("");
-  const [girlsWithBoys, setGirlsWithBoys] = useState("");
-  const [roomSmall, setroomSmall] = useState("");
-  
-
-  
 
   const PostData = () => {
     if (
@@ -25,34 +19,32 @@ function Signup() {
         classes: "#d32f2f red darken-2",
       });
     }
-    if (password != confirm) {
-      return M.toast({
-        html: "Passwords do not match",
-        classes: "#d32f2f red darken-2",
-      });
-    }
     console.log("btn press");
-    fetch("/signup", {
+    fetch("/signin", {
       method: "post",
       headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
         password,
         email,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.error) {
           M.toast({ html: data.error, classes: "#d32f2f red darken-2" });
         } else {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+        //   dispatch({ type: "USER", payload: data.user });
           M.toast({
-            html: "Saved Successfuly",
+            html: "Signed In successfully",
             classes: "#43a047 green darken-1",
           });
-          history.push("/signin");
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -63,15 +55,7 @@ function Signup() {
   return (
     <div className="mycard card">
       <div className="auth-card input-field">
-        <h2>Instagram</h2>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
+        <h2>Business User Sign-in</h2>
         <input
           type="text"
           placeholder="email"
@@ -79,7 +63,7 @@ function Signup() {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-        required/>
+        />
         <input
           type="password"
           placeholder="password"
@@ -89,29 +73,20 @@ function Signup() {
             console.log(setPassword);
           }}
         />
-        <input
-          type="password"
-          placeholder="confirm password"
-          value={confirm}
-          onChange={(e) => {
-            setConfirm(e.target.value);
-            console.log(setConfirm);
-          }}
-        />
         <button
           className="btn waves-effect waves-light #1e88e5 blue darken-1"
           onClick={(e) => {
             PostData();
           }}
         >
-          Sign Up
+          Submit
         </button>
         <h6>
-          <Link to="/signin">Already have an account?</Link>
+          <Link to="/bsignup">Don't have an account? Create One</Link>
         </h6>
       </div>
     </div>
   );
 }
 
-export default Signup;
+export default Signin;
