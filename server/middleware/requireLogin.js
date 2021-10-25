@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../keys");
 const mongoose = require("mongoose");
-const userSchema = require("../models/user");
-const User = mongoose.model("User", userSchema);
+const businessUserSchema = require("../models/businessUser");
+const BusinessUser = mongoose.model("User", businessUserSchema);
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
@@ -15,8 +15,8 @@ module.exports = (req, res, next) => {
       return res.status(401).json({ error: "You must be logged in" });
     }
     const { _id } = payload;
-    User.findById(_id).then((userdata) => {
-      req.user = userdata;
+    BusinessUser.findById(_id).then((userdata) => {
+      req.businessUser = businessuserdata;
       next();
     });
   });
