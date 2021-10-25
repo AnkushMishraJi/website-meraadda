@@ -10,9 +10,31 @@ function Signup() {
   const [confirm, setConfirm] = useState("");
   const [location, setLocation] = useState("");
   const [girlsWithBoys, setGirlsWithBoys] = useState(false);
-  const [roomSmall, setRoomSmall] = useState({});
-  const [roomMedium, setRoomMedium] = useState({});
-  const [roomLarge, setRoomLarge] = useState({});
+  const [smallPrice,setSmallPrice] = useState("");
+  const [smallPic,setSmallPic] = useState("");
+  const [smallCapacity,setSmallCapacity] = useState("");
+  const [mediumPrice,setMediumPrice] = useState("");
+  const [mediumPic,setMediumPic] = useState("");
+  const [mediumCapacity,setMediumCapacity] = useState("");
+  const [largePrice,setLargePrice] = useState("");
+  const [largePic,setLargePic] = useState("");
+  const [largeCapacity,setLargeCapacity] = useState("");
+  
+  let roomSmallData = {
+    smallPrice,
+    smallPic,
+    smallCapacity
+  };
+  let roomMediumData = {
+    mediumPrice,
+    mediumPic,
+    mediumCapacity
+  };
+  let roomLargeData = {
+    largePrice,
+    largePic,
+    largeCapacity
+  };
 
 
   //for checkboxes
@@ -56,9 +78,9 @@ function Signup() {
         hotelName,
         location,
         girlsWithBoys,
-        roomSmall,
-        roomMedium,
-        roomLarge
+        roomSmallData,
+        roomMediumData,
+        roomLargeData
       }),
     })
       .then((res) => res.json())
@@ -136,17 +158,31 @@ function Signup() {
              <input
           type="text"
           placeholder="price for small room"
-          value=""/>
+          value={smallPrice}
+          onChange={(e) => {
+            setSmallPrice(e.target.value);
+   
+          }}
+          />
 
           <input
           type="text"
           placeholder="upload pictures for small room"
-          value=""/>
+          value={smallPic}
+          onChange={(e) => {
+            setSmallPic(e.target.value);
+     
+          }}
+          />
 
           <input
           type="text"
           placeholder="capacity of small room"
-          value=""/>
+          value={smallCapacity}
+          onChange={(e) => {
+            setSmallCapacity(e.target.value);
+          }}
+          />
           </div>
         
         
@@ -163,17 +199,29 @@ function Signup() {
              <input
           type="text"
           placeholder="price for Medium Room"
-          value=""/>
+          value={mediumPrice}
+          onChange={(e) => {
+            setMediumPrice(e.target.value);
+      
+          }}/>
 
           <input
           type="text"
           placeholder="upload pictures for Medium Room"
-          value=""/>
+          value={mediumPic}
+          onChange={(e) => {
+            setMediumPic(e.target.value);
+     
+          }}/>
 
           <input
           type="text"
           placeholder="capacity of Medium Room"
-          value=""/>
+          value={mediumCapacity}
+          onChange={(e) => {
+            setMediumCapacity(e.target.value);
+        
+          }}/>
           </div>
         
         
@@ -190,17 +238,29 @@ function Signup() {
              <input
           type="text"
           placeholder="price for Large room"
-          value=""/>
+          value={largePrice}
+          onChange={(e) => {
+            setLargePrice(e.target.value);
+        
+          }}/>
 
           <input
           type="text"
           placeholder="upload pictures for Large room"
-          value=""/>
+          value={largePic}
+          onChange={(e) => {
+            setLargePic(e.target.value);
+   
+          }}/>
 
           <input
           type="text"
           placeholder="capacity of Large room"
-          value=""/>
+          value={largeCapacity}
+          onChange={(e) => {
+            setLargeCapacity(e.target.value);
+
+          }}/>
           </div>
         
         
