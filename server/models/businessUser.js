@@ -2,20 +2,51 @@ const mongoose = require("mongoose");
 
 
 //Room Schema
-const roomSchema = new mongoose.Schema({
-price:{
+const roomSchemaSmall = new mongoose.Schema({
+smallPrice:{
     type: String,
     required: true,
   },
-pic:{
-    type: [String],
+smallPic:{
+    type: String,
     required: true,
   },
-capacity:{
+smallCapacity:{
     type: String,
     required: true,
   }
 })
+
+const roomSchemaMedium = new mongoose.Schema({
+  mediumPrice:{
+      type: String,
+      required: true,
+    },
+  mediumPic:{
+      type: String,
+      required: true,
+    },
+  mediumCapacity:{
+      type: String,
+      required: true,
+    }
+  })
+
+  const roomSchemaLarge = new mongoose.Schema({
+    largePrice:{
+        type: String,
+        required: true,
+      },
+    largePic:{
+        type: [String],
+        required: true,
+      },
+    largeCapacity:{
+        type: String,
+        required: true,
+      }
+    })
+  
 
 
 //Business User Schema
@@ -44,16 +75,16 @@ const businessUserSchema = new mongoose.Schema({
     type: Boolean,
     required: false,
   },
-  roomSmall:{
-      type:roomSchema,
+  roomSmallData:{
+      type:roomSchemaSmall,
       required:false
   },
-  roomMedium:{
-      type:roomSchema,
+  roomMediumData:{
+      type:roomSchemaMedium,
       required:false
   },
-  roomLarge:{
-      type:roomSchema,
+  roomLargeData:{
+      type:roomSchemaLarge,
       required:false
   }
 })

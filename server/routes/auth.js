@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 
 //bsignup completed
 router.post("/bsignup", (req, res) => {
-  const { hotelName, email, password, location, girlsWithBoys, roomSmall, roomMedium, roomLarge } = req.body;
+  const { hotelName, email, password, location, girlsWithBoys, roomSmallData, roomMediumData, roomLargeData } = req.body;
   if (!email || !password || !hotelName || !location ||!girlsWithBoys ) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
@@ -31,9 +31,9 @@ router.post("/bsignup", (req, res) => {
         hotelName,
         location,
         girlsWithBoys,
-        roomSmall,
-        roomMedium,
-        roomLarge
+        roomSmallData,
+        roomMediumData,
+        roomLargeData
       });
       BusinessUser
         .save()
