@@ -8,7 +8,7 @@ smallPrice:{
     required: true,
   },
 smallPic:{
-    type: String,
+    type: [String],
     required: true,
   },
 smallCapacity:{
@@ -23,7 +23,7 @@ const roomSchemaMedium = new mongoose.Schema({
       required: true,
     },
   mediumPic:{
-      type: String,
+      type: [String],
       required: true,
     },
   mediumCapacity:{
