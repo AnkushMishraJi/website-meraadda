@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../App.css";
@@ -11,6 +12,7 @@ function Navbar() {
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><a href="/bsignup">Business Sign-up</a></li>
         <li><a href="/bsignin">Business Sign-in</a></li>
+        <li><a href="/usignin">User Sign-in</a></li>
         </ul>
     </div>
   </nav>

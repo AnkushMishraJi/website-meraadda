@@ -20,7 +20,7 @@ function Signin() {
       });
     }
     console.log("btn press");
-    fetch("/signin", {
+    fetch("/bsignin", {
       method: "post",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),

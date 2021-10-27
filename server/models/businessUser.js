@@ -5,46 +5,40 @@ const mongoose = require("mongoose");
 const roomSchemaSmall = new mongoose.Schema({
 smallPrice:{
     type: String,
-    required: true,
+    
   },
 smallPic:{
     type: [String],
-    required: true,
+    
   },
 smallCapacity:{
     type: String,
-    required: true,
+    
   }
 })
 
 const roomSchemaMedium = new mongoose.Schema({
   mediumPrice:{
       type: String,
-      required: true,
-    },
+          },
   mediumPic:{
       type: [String],
-      required: true,
-    },
+          },
   mediumCapacity:{
       type: String,
-      required: true,
-    }
+          }
   })
 
   const roomSchemaLarge = new mongoose.Schema({
     largePrice:{
         type: String,
-        required: true,
-      },
+              },
     largePic:{
         type: [String],
-        required: true,
-      },
+              },
     largeCapacity:{
         type: String,
-        required: true,
-      }
+              }
     })
   
 
@@ -69,7 +63,7 @@ const businessUserSchema = new mongoose.Schema({
   },
   girlsWithBoys :{
     type: Boolean,
-    required: true,
+    required:false
   },
   isVerified:{
     type: Boolean,

@@ -44,6 +44,7 @@ function Signup() {
   
  
   const PostData = () => {
+
     if (
       !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
@@ -60,7 +61,7 @@ function Signup() {
         classes: "#d32f2f red darken-2",
       });
     }
-    if (!hotelName || !email || !password || !confirm || !location){
+        if (!hotelName || !email || !password || !confirm || !location){
       return M.toast({
         html: "Please enter all fields",
         classes: "#d32f2f red darken-2",
@@ -92,7 +93,7 @@ function Signup() {
             html: "Saved Successfuly",
             classes: "#43a047 green darken-1",
           });
-          history.push("/signin");
+          history.push("/bsignin");
         }
       })
       .catch((err) => {

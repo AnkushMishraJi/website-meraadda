@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 //bsignup completed
 router.post("/bsignup", (req, res) => {
   const { hotelName, email, password, location, girlsWithBoys, roomSmallData, roomMediumData, roomLargeData } = req.body;
-  if (!email || !password || !hotelName || !location ||!girlsWithBoys ) {
+  if (!email || !password || !hotelName || !location ) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
   businessUser.findOne({ email: email }).then((savedBusinessUser) => {
