@@ -1,10 +1,15 @@
 import React ,{useState,useEffect} from "react";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import firebase from "../../firebase";
+import M from "materialize-css";
 
 const UserSignin = () =>{
     const [otp,setOtp]=useState("")
      useEffect(()=>{
+      M.toast({
+        html: "OTP sent Successfuly",
+        classes: "#43a047 green darken-1",
+      });
        onSignInSubmit();
      },[])
 
