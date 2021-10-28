@@ -1,9 +1,13 @@
-import React ,{useState} from "react";
+import React ,{useState,useEffect} from "react";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import firebase from "../../firebase";
 
 const UserSignin = () =>{
     const [otp,setOtp]=useState("")
+     useEffect(()=>{
+       onSignInSubmit();
+     },[])
+
 
     const configureCaptcha=()=>{
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
@@ -17,7 +21,6 @@ const UserSignin = () =>{
     });
     }
     const onSignInSubmit = (e) =>{
-        e.preventDefault()
         configureCaptcha()
         const phoneNumber ="+91"+localStorage.getItem("phone");
         console.log(phoneNumber)
@@ -34,6 +37,7 @@ const UserSignin = () =>{
       // ...
        console.log(error)
     });
+    
     }
     const onSubmitOtp = (e)=>{
         e.preventDefault()
@@ -57,8 +61,7 @@ const UserSignin = () =>{
           <div className="mycard card">
       <div className="auth-card input-field">
         <h2>User Sign-in</h2>
-        {onSignInSubmit}
-        <form onSubmit={onSubmitOtp}>
+                <form onSubmit={onSubmitOtp}>
             <input name="otp" type="text"  placeholder="Enter OTP" required value={otp} onChange={(e)=>setOtp(e.target.value)}/>
             <button type="submit">Submit</button>
         </form>
