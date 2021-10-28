@@ -13,6 +13,7 @@ function Navbar() {
         <li><a href="/bsignup">Business Sign-up</a></li>
         <li><a href="/bsignin">Business Sign-in</a></li>
         <li><a href="/usignin">User Sign-in</a></li>
+        <li><a href="/uphone">Phoneotp</a></li>
         </ul>
     </div>
   </nav>

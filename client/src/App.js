@@ -5,6 +5,8 @@ import Navbar from "./components/navbar";
 import Signin from "./components/screens/Bsignin";
 import Signup from "./components/screens/Bsignup";
 import UserSignin from "./components/screens/Usignin";
+import UserPhoneCheck from "./components/screens/Uphone";
+
 
 // import { reducer, initialState } from "./reducers/userReducer";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
@@ -26,6 +28,9 @@ function App() {
         </Route>
         < Route path="/usignin">
         <UserSignin />
+        </Route>
+        < Route path="/uphone">
+        <UserPhoneCheck />
         </Route>
         </BrowserRouter>
     

@@ -3,7 +3,6 @@ import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import firebase from "../../firebase";
 
 const UserSignin = () =>{
-    const [phone,setPhone]=useState("")
     const [otp,setOtp]=useState("")
 
     const configureCaptcha=()=>{
@@ -20,7 +19,7 @@ const UserSignin = () =>{
     const onSignInSubmit = (e) =>{
         e.preventDefault()
         configureCaptcha()
-        const phoneNumber ="+91"+phone;
+        const phoneNumber ="+91"+localStorage.getItem("phone");
         console.log(phoneNumber)
         const appVerifier = window.recaptchaVerifier;
         firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
@@ -45,6 +44,7 @@ const UserSignin = () =>{
   const user = result.user;
   console.log(JSON.stringify(user))
   alert("User is verified")
+  console.log(result)
 
   // ...
 }).catch((error) => {
@@ -57,11 +57,7 @@ const UserSignin = () =>{
           <div className="mycard card">
       <div className="auth-card input-field">
         <h2>User Sign-in</h2>
-        <form onSubmit={onSignInSubmit}>
-            <div id="sign-in-button"></div>
-            <input name="phoneNumber" type="text"  placeholder="Enter your phone number" value={phone} onChange={(e)=>setPhone(e.target.value)} />
-            <button type="submit">Submit</button>
-        </form>
+        {onSignInSubmit}
         <form onSubmit={onSubmitOtp}>
             <input name="otp" type="text"  placeholder="Enter OTP" required value={otp} onChange={(e)=>setOtp(e.target.value)}/>
             <button type="submit">Submit</button>

@@ -8,6 +8,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const requireLogin = require("../middleware/requireLogin");
 
+const userSchema = require("../models/user")
+const clientUser = mongoose.model("ClientUser", userSchema);
+
 const { JWT_SECRET } = require("../keys");
 
 router.get("/", (req, res) => {
@@ -66,6 +69,29 @@ router.post("/bsignin", (req, res) => {
         return res.status(422).json({ error: "Invalid Email or Password" });
       }
     });
+  });
+});
+
+router.post("/checknum", (req, res) => {
+  const { phoneNumber } = req.body;
+    clientUser.findOne({ phoneNumber: phoneNumber }).then((savedClientUser) => {
+    if (savedClientUser) {
+      console.log("User already exists")
+      return res.status(202).json({isUser:true,phoneNumber:phoneNumber})
+      }
+    else {
+        const ClientUser = new clientUser({
+        phoneNumber
+      });
+      ClientUser
+      .save()
+      .then((ClientUser)=>{
+        res.json({isUser:false,message:"Hello new user"});
+        console.log(User)
+      })
+
+    }
+    
   });
 });
 
