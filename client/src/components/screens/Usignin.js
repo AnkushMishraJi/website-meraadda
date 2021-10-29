@@ -2,6 +2,7 @@ import React ,{useState,useEffect} from "react";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import firebase from "../../firebase";
 import M from "materialize-css";
+import { useHistory } from "react-router";
 
 const UserSignin = () =>{
     const [otp,setOtp]=useState("")
@@ -12,6 +13,8 @@ const UserSignin = () =>{
       });
        onSignInSubmit();
      },[])
+
+     const history = useHistory()
 
 
     const configureCaptcha=()=>{
@@ -52,8 +55,9 @@ const UserSignin = () =>{
   // User signed in successfully.
   const user = result.user;
   console.log(JSON.stringify(user))
-  alert("User is verified")
+  M.toast({ html: "User is verified", classes: "#d32f2f red darken-2" });
   console.log(result)
+  history.push("/")
 
   // ...
 }).catch((error) => {

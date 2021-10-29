@@ -14,6 +14,7 @@ function Navbar() {
         <li><a href="/bsignin">Business Sign-in</a></li>
         <li><a href="/usignin">User Sign-in</a></li>
         <li><a href="/uphone">Phoneotp</a></li>
+        <li><a href="/usignup">User Sign-up</a></li>
         </ul>
     </div>
   </nav>

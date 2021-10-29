@@ -6,6 +6,7 @@ import Signin from "./components/screens/Bsignin";
 import Signup from "./components/screens/Bsignup";
 import UserSignin from "./components/screens/Usignin";
 import UserPhoneCheck from "./components/screens/Uphone";
+import UserSignup from "./components/screens/Usignup";
 
 
 // import { reducer, initialState } from "./reducers/userReducer";
@@ -31,6 +32,9 @@ function App() {
         </Route>
         < Route path="/uphone">
         <UserPhoneCheck />
+        </Route>
+        < Route path="/usignup">
+        <UserSignup />
         </Route>
         </BrowserRouter>
     

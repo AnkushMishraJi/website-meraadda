@@ -82,6 +82,7 @@ router.post("/bsignin", (req, res) => {
   });
 });
 
+//checknum complete
 router.post("/checknum", (req, res) => {
   const { phoneNumber } = req.body;
     clientUser.findOne({ phoneNumber: phoneNumber }).then((savedClientUser) => {
@@ -97,12 +98,33 @@ router.post("/checknum", (req, res) => {
       .save()
       .then((ClientUser)=>{
         res.json({isUser:false,message:"Hello new user"});
-        console.log(User)
-      })
+              })
 
     }
     
   });
+});
+
+//user signup complete
+router.put("/usignup", (req, res) => {
+  const { name,email,dob, phoneNumber } = req.body;
+  // if (!email || !name || !dob ) {
+  //   return res.status(400).json({
+  //     "error":"Please enter all fields"
+  //     });
+  // }
+  clientUser.findOneAndUpdate({phoneNumber:phoneNumber},{$set:{name:name,email:email,dob:dob}},
+    function(err){
+      if (err){
+        return console.log(err)
+      }
+      else {
+      res.json("Saved User")
+      console.log("Saved USer")
+    }
+    }
+    
+  );
 });
 
 module.exports = router;
