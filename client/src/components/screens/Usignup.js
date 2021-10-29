@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import M from "materialize-css";
+import { Container, DatePicker } from "react-materialize"; 
 
 function UserSignup() {
   const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [dob, setDob] = useState();
+  const [dob, setDob] = useState("");
 
  
  
@@ -80,14 +81,15 @@ function UserSignup() {
             setEmail(e.target.value);
           }}
         />
-           <input
-          type="text"
-          placeholder="dob"
-          value={dob}
-          onChange={(e) => {
-            setDob(e.target.value);
+        <Container>
+        <DatePicker
+          selected={dob}
+          onChange={(dob) => {
+            setDob(dob);
           }}
+          placeholder={dob.toString()}
         />
+      </Container>  
         <a className="waves-effect btn #1976d2 blue darken-2" onClick={PostData}>Submit</a>
         
       </div>

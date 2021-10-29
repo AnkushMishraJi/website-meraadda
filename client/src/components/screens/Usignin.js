@@ -55,7 +55,7 @@ const UserSignin = () =>{
   // User signed in successfully.
   const user = result.user;
   console.log(JSON.stringify(user))
-  M.toast({ html: "User is verified", classes: "#d32f2f red darken-2" });
+  M.toast({ html: "User is verified", classes: "#d32f2f green darken-2" });
   console.log(result)
   history.push("/")
 
