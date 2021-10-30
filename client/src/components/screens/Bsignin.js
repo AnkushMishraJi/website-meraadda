@@ -44,7 +44,7 @@ function Signin() {
             html: "Signed In successfully",
             classes: "#43a047 green darken-1",
           });
-          history.push("/");
+          history.push("/hoteladmin");
         }
       })
       .catch((err) => {

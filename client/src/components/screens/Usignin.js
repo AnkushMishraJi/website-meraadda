@@ -7,6 +7,9 @@ import { useHistory } from "react-router";
 const UserSignin = () =>{
     const [otp,setOtp]=useState("")
      useEffect(()=>{
+       if (!localStorage.getItem("phone")){
+         return history.push("/uphone")
+       }
       M.toast({
         html: "OTP sent Successfuly",
         classes: "#43a047 green darken-1",
@@ -15,6 +18,7 @@ const UserSignin = () =>{
      },[])
 
      const history = useHistory()
+
 
 
     const configureCaptcha=()=>{
@@ -56,8 +60,7 @@ const UserSignin = () =>{
   const user = result.user;
   console.log(JSON.stringify(user))
   M.toast({ html: "User is verified", classes: "#d32f2f green darken-2" });
-  console.log(result)
-  history.push("/")
+  console.log(JSON.stringify(user.providerId))
 
   // ...
 }).catch((error) => {

@@ -2,11 +2,15 @@ import React, { useEffect, createContext, useReducer, useContext } from "react";
 
 import Home from "./components/screens/Home";
 import Navbar from "./components/navbar";
+
 import Signin from "./components/screens/Bsignin";
 import Signup from "./components/screens/Bsignup";
+import HotelDashboard from "./components/screens/Bpage";
+
 import UserSignin from "./components/screens/Usignin";
 import UserPhoneCheck from "./components/screens/Uphone";
 import UserSignup from "./components/screens/Usignup";
+
 
 
 // import { reducer, initialState } from "./reducers/userReducer";
@@ -35,6 +39,9 @@ function App() {
         </Route>
         < Route path="/usignup">
         <UserSignup />
+        </Route>
+        < Route path="/hoteladmin">
+        <HotelDashboard />
         </Route>
         </BrowserRouter>
     

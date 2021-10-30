@@ -84,6 +84,7 @@ function UserSignup() {
         <Container>
         <DatePicker
           selected={dob}
+          placeholder="date of birth"
           onChange={(dob) => {
             setDob(dob);
           }}
