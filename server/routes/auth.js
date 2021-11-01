@@ -11,6 +11,9 @@ const requireLogin = require("../middleware/requireLogin");
 const userSchema = require("../models/user")
 const clientUser = mongoose.model("ClientUser", userSchema);
 
+const bookingSchema = require("../models/booking")
+const booking = mongoose.model("Booking",bookingSchema)
+
 const { JWT_SECRET } = require("../keys");
 
 router.get("/", (req, res) => {
@@ -19,7 +22,7 @@ router.get("/", (req, res) => {
 
 //bsignup completed
 router.post("/bsignup", (req, res) => {
-  const { hotelName, email, password, location, girlsWithBoys, roomSmallData, roomMediumData, roomLargeData } = req.body;
+  const { hotelName, email, password, location, address, girlsWithBoys, isNightPartyAllowed, roomSmallData, roomMediumData, roomLargeData } = req.body;
   if (!email || !password || !hotelName || !location ) {
     return res.status(400).json({
       "error":"Please enter all fields"
@@ -37,7 +40,9 @@ router.post("/bsignup", (req, res) => {
         password: hashedpassword,
         hotelName,
         location,
+        address,
         girlsWithBoys,
+        isNightPartyAllowed,
         roomSmallData,
         roomMediumData,
         roomLargeData
@@ -126,5 +131,43 @@ router.put("/usignup", (req, res) => {
     
   );
 });
+
+//booking completed
+router.post("/booking", (req,res) => {
+  const { name, boys, girls, checkIn, slot, hotelEmail, roomtype, totalBill } = req.body;
+  const Booking = new booking({
+    name,
+    boys,
+    girls,
+    checkIn,
+    slot,
+    hotelEmail,
+    roomtype,
+    totalBill
+  });
+  Booking
+  .save()
+  .then((Booking) => {
+          res.status(201).json({
+            "message":"User Booking has been generatd"
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+});
+
+//hotel booking get completed
+router.get("/hotelBooking", (req,res) =>{
+  const {hotelEmail} = req.query;
+  booking.find({hotelEmail:hotelEmail}).then((thisHotelBookings)=>{
+    return res.status(200).json(thisHotelBookings)
+  })
+  .catch((err) => {
+          console.log(err);
+        });
+}) 
+
+
 
 module.exports = router;

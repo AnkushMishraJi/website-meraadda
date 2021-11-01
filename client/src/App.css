@@ -71,7 +71,7 @@ h2 {
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 5fr;
   margin: 0px auto;
   padding: 0px auto;
   background-color: whitesmoke;
@@ -105,42 +105,7 @@ h2 {
 
 
 }
-.right-sidebar {
-  margin: 10px;
-  font-size: 20px;
-  background-color: white;
-  height: 100vh;
-  box-shadow: gray 1px 1px 2px 1px;
-  position: sticky;
-  top:0;
-  padding: 20px;
- 
-}
-.right-sidebar button {
-  color:white !important;
-  width: 80%;
-  height: 50px;
-  margin: 20px;
-  background-color: #f74c4c;
-	color: inherit;
-	border: none;
-	padding: 10;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-  text-align: center;
-  justify-self: center;
-  transition: 1000ms;
-  border-radius: 10px;
-}
 
-.right-sidebar button:hover{
-color:#f74c4c !important;
-background-color: white !important;
-border: #f74c4c 2px solid;
-
-
-}
 
 .booking-box {
   padding: 20px;

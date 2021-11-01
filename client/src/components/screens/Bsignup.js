@@ -9,7 +9,9 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [location, setLocation] = useState("");
+  const [address, setAddress] = useState("");
   const [girlsWithBoys, setGirlsWithBoys] = useState(false);
+  const [isNightPartyAllowed, setIsNightPartyAllowed] = useState(false);
   const [smallPrice,setSmallPrice] = useState("");
   const [smallPic,setSmallPic] = useState("");
   const [smallCapacity,setSmallCapacity] = useState("");
@@ -61,7 +63,7 @@ function Signup() {
         classes: "#d32f2f red darken-2",
       });
     }
-        if (!hotelName || !email || !password || !confirm || !location){
+        if (!hotelName || !email || !password || !confirm || !location || !address){
       return M.toast({
         html: "Please enter all fields",
         classes: "#d32f2f red darken-2",
@@ -78,7 +80,9 @@ function Signup() {
         password,
         hotelName,
         location,
+        address,
         girlsWithBoys,
+        isNightPartyAllowed,
         roomSmallData,
         roomMediumData,
         roomLargeData
@@ -146,9 +150,21 @@ function Signup() {
             setLocation(e.target.value);
           }}
         />
+        <input
+          type="text"
+          placeholder="address"
+          value={address}
+          onChange={(e) => {
+            setAddress(e.target.value);
+          }}
+        />
         <div><label>
         <input type="checkbox" value={girlsWithBoys} onClick={(e)=>{setGirlsWithBoys(!girlsWithBoys)}} />
         <span>Are girls allowed with boys</span></label>
+
+        <label>
+        <input type="checkbox" value={isNightPartyAllowed} onClick={(e)=>{setIsNightPartyAllowed(!isNightPartyAllowed)}} />
+        <span>Is Night Party Allowed ?</span></label>
 
 
         <div><label>

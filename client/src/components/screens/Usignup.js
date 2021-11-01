@@ -7,7 +7,7 @@ function UserSignup() {
   const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState(new Date());
 
  
  
@@ -88,9 +88,10 @@ function UserSignup() {
           onChange={(dob) => {
             setDob(dob);
           }}
-          placeholder={dob.toString()}
+          placeholder="Enter Date"
+          value={dob.toDateString()}
         />
-      </Container>  
+      </Container>   
         <a className="waves-effect btn #1976d2 blue darken-2" onClick={PostData}>Submit</a>
         
       </div>

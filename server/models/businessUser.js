@@ -61,6 +61,18 @@ const businessUserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  address:{
+    type: String,
+    required: true,
+  },
+  isNightPartyAllowed:{
+    type:Boolean,
+    required: true,
+  },
+  isBlockedOn:{
+    type: [Date],
+    required: false,
+  },
   girlsWithBoys :{
     type: Boolean,
     required:false
@@ -69,6 +81,7 @@ const businessUserSchema = new mongoose.Schema({
     type: Boolean,
     required: false,
   },
+  
   roomSmallData:{
       type:roomSchemaSmall,
       required:false

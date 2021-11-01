@@ -19,7 +19,8 @@ function Signin() {
         classes: "#d32f2f red darken-2",
       });
     }
-    console.log("btn press");
+    localStorage.setItem("email", email)
+    console.log("btn press",localStorage.getItem("email"));
     fetch("/bsignin", {
       method: "post",
       headers: {
