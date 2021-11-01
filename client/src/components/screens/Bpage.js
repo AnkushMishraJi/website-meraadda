@@ -30,7 +30,7 @@ const HotelDashboard = ()=>{
 //   }, [isActive, seconds]);
 //To refresh every minute
 
- 
+ const [myBookings,setMyBookings] = useState([]);
 
 useEffect(()=>{
     
@@ -43,6 +43,7 @@ fetch(`/hotelBooking?hotelEmail=${hotelEmail}`, {
     })
     .then((res) => res.json())
       .then((data) => {
+          setMyBookings(data);
           console.log(data)
       })
 })
@@ -59,46 +60,20 @@ fetch(`/hotelBooking?hotelEmail=${hotelEmail}`, {
 
         <div className="center-bar">
             
-            <div className ="booking-box">
-                <p>Booking Id: #1234567</p> 
-                <p>Name: Sarfaraz Hasan</p> 
-                <p>Persons: 5 boys, 3 girls</p> 
-                <p>Date of check in: 02/11/21</p> 
+            
+               { myBookings.map(item =>{ return(
+                <div className ="booking-box">
+                <p>id: unique</p> 
+                <p>Name: {item.name}</p> 
+                <p>Persons: {item.boys} boys, {item.girls} girls</p> 
+                <p>Date of check in: {item.checkIn}</p> 
                 <p>Time Duration - 02/11/21 20:00 - 03/11/21 10:00</p> 
-            </div>
-
-            <div className ="booking-box">
-                <p>Booking Id: #1234567</p> 
-                <p>Name: Sarfaraz Hasan</p> 
-                <p>Persons: 5 boys, 3 girls</p> 
-                <p>Date of check in: 02/11/21</p> 
-                <p>Time Duration - 02/11/21 20:00 - 03/11/21 10:00</p> 
-            </div>
-
-            <div className ="booking-box">
-                <p>Booking Id: #1234567</p> 
-                <p>Name: Sarfaraz Hasan</p> 
-                <p>Persons: 5 boys, 3 girls</p> 
-                <p>Date of check in: 02/11/21</p> 
-                <p>Time Duration - 02/11/21 20:00 - 03/11/21 10:00</p> 
-            </div>
-
-            <div className ="booking-box">
-                <p>Booking Id: #1234567</p> 
-                <p>Name: Sarfaraz Hasan</p> 
-                <p>Persons: 5 boys, 3 girls</p> 
-                <p>Date of check in: 02/11/21</p> 
-                <p>Time Duration - 02/11/21 20:00 - 03/11/21 10:00</p> 
-            </div>
-
-            <div className ="booking-box">
-                <p>Booking Id: #1234567</p> 
-                <p>Name: Sarfaraz Hasan</p> 
-                <p>Persons: 5 boys, 3 girls</p> 
-                <p>Date of check in: 02/11/21</p> 
-                <p>Time Duration - 02/11/21 20:00 - 03/11/21 10:00</p> 
-            </div>
-
+                </div>
+                )
+               }
+               )
+            }
+            
         </div>
 
         <div className="right-sidebar">

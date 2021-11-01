@@ -6,10 +6,10 @@ import M from "materialize"
 
 const Home = () =>{
 
-const [date,setDate] = useState(new Date())
-const [time,setTime] = useState()
-
-
+const [date,setDate] = useState(new Date());
+const [time,setTime] = useState();
+const [boys,setBoys] = useState(0);
+const [girls,setGirls] = useState(0);
     
     return (
     <>
@@ -39,10 +39,22 @@ const [time,setTime] = useState()
         />
       </Container> 
         <input
-          type="text"
-          placeholder="Persons"
-          
+          type="number"
+          placeholder="Boys"
+          value={boys}
+          onChange={(e) => {
+            setBoys(e.target.value);                     
+          }}
         />
+        <input
+          type="number"
+          placeholder="Girls"
+          value={girls}
+          onChange={(e) => {
+            setGirls(e.target.value);                   
+          }}
+        />
+        <h6>Total No. Of People : {}</h6>
         <button
           className="btn waves-effect waves-light #1e88e5 blue darken-1"
           
