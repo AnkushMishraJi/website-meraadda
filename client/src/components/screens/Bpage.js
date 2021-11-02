@@ -63,11 +63,11 @@ fetch(`/hotelBooking?hotelEmail=${hotelEmail}`, {
             
                { myBookings.map(item =>{ return(
                 <div className ="booking-box">
-                <p>id: unique</p> 
+                <p>id: {item._id}</p> 
                 <p>Name: {item.name}</p> 
                 <p>Persons: {item.boys} boys, {item.girls} girls</p> 
                 <p>Date of check in: {item.checkIn}</p> 
-                <p>Time Duration - 02/11/21 20:00 - 03/11/21 10:00</p> 
+                <p>Slot: Day</p> 
                 </div>
                 )
                }

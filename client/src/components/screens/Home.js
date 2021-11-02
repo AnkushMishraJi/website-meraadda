@@ -9,8 +9,7 @@ const Home = () =>{
 const [date,setDate] = useState(new Date());
 const [time,setTime] = useState();
 const [boys,setBoys] = useState(0);
-const [girls,setGirls] = useState(0);
-    
+const [girls,setGirls] =useState(0);
     return (
     <>
     <div className="mycard card">
@@ -42,22 +41,29 @@ const [girls,setGirls] = useState(0);
           type="number"
           placeholder="Boys"
           value={boys}
-          onChange={(e) => {
-            setBoys(e.target.value);                     
-          }}
+          onChange={
+            (e)=>{setBoys(parseInt(e.target.value))
+            }
+          }
+          min="0"
+          max="99"
         />
         <input
           type="number"
           placeholder="Girls"
           value={girls}
-          onChange={(e) => {
-            setGirls(e.target.value);                   
-          }}
+          onChange={
+            (e)=>{
+              setGirls(parseInt(e.target.value))
+              console.log(girls);
+            } 
+          }
+          min="0"
+          max="99"
         />
-        <h6>Total No. Of People : {}</h6>
+        <h6>Total No. Of. People = {boys+girls}</h6>
         <button
           className="btn waves-effect waves-light #1e88e5 blue darken-1"
-          
         >
           Search
         </button>
