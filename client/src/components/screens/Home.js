@@ -20,10 +20,13 @@ const [girls,setGirls] =useState(0);
           selected={date}
           placeholder="date of birth"
           onChange={(date) => {
-            setDate(date);
+            setDate(date.toDateString());
+            console.log(date)
+            console.log(typeof date)
+
           }}
           placeholder="Enter Date"
-          value={date.toDateString()}
+          value={date}
         />
       </Container>  
         <Container>

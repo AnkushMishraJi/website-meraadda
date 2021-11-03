@@ -168,6 +168,49 @@ router.get("/hotelBooking", (req,res) =>{
         });
 }) 
 
+//Incomplete
+router.get("/hotelList", (req,res) =>{
+  const {date, boys, girls, isNightParty} = req.body
+  console.log(typeof date,typeof boys, typeof girls,typeof isNightParty)
+  const totalPersons = boys + girls;
+  console.log(totalPersons)
+  var isGirlsWithBoys;
+  if (boys>=1 && girls>=1){
+    isGirlsWithBoys = true
+  }else{
+    isGirlsWithBoys = false
+  } 
+  businessUser.find(
+    {isBlockedOn:{$ne:date}},
+    // {girlsWithBoys:isGirlsWithBoys},
+    {$or:[{roomSmallData:{smallCapacity:{$gte:totalPersons}}},{roomMediumData:{mediumCapacity:{$gte:totalPersons}}},{roomLargeData:{largeCapacity:{$gte:totalPersons}}}]},
+    // {isNightPartyAllowed:isNightParty}
+    
+    ).then((toListHotels)=>{
+    return (res.status(200).json(toListHotels))  
+  })
+  .catch((err)=>{
+      console.log(err)
+    })
+
+})
+
+//Incomplete
+router.put("/blockUnblock", (req,res) =>{
+  const {isBlockedOn,email} = req.body;
+  businessUser.findOneAndUpdate({email:email},{
+    $push:{isBlockedOn:isBlockedOn}
+  },{
+    new:true
+  }).exec((err,result)=>{
+    if (err){
+    return res.status(422).json({error:err})
+  }else{
+    res.json(result)
+    console.log(isBlockedOn)
+  }
+  })
+})
 
 
 module.exports = router;

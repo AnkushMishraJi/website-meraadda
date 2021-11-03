@@ -12,7 +12,7 @@ smallPic:{
     
   },
 smallCapacity:{
-    type: String,
+    type: Number,
     
   }
 })
@@ -25,7 +25,7 @@ const roomSchemaMedium = new mongoose.Schema({
       type: String,
           },
   mediumCapacity:{
-      type: String,
+      type: Number,
           }
   })
 
@@ -37,7 +37,7 @@ const roomSchemaMedium = new mongoose.Schema({
         type: String,
               },
     largeCapacity:{
-        type: String,
+        type: Number,
               }
     })
   
@@ -69,10 +69,7 @@ const businessUserSchema = new mongoose.Schema({
     type:Boolean,
     required: true,
   },
-  isBlockedOn:{
-    type: [Date],
-    required: false,
-  },
+  isBlockedOn:{type:Object},
   girlsWithBoys :{
     type: Boolean,
     required:false
