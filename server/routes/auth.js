@@ -181,11 +181,17 @@ router.get("/hotelList", (req,res) =>{
     isGirlsWithBoys = false
   } 
   businessUser.find(
+  {
+    $and:[
     {isBlockedOn:{$ne:date}},
-    // {girlsWithBoys:isGirlsWithBoys},
-    {$or:[{roomSmallData:{smallCapacity:{$gte:totalPersons}}},{roomMediumData:{mediumCapacity:{$gte:totalPersons}}},{roomLargeData:{largeCapacity:{$gte:totalPersons}}}]},
-    // {isNightPartyAllowed:isNightParty}
-    
+    //{girlsWithBoys:isGirlsWithBoys},
+    {isNightPartyAllowed:isNightParty},
+    {$or:[
+      {'roomMediumData.mediumCapacity':{$gte:totalPersons}},
+      {'roomSmallData.smallCapacity':{$gte:totalPersons}},
+      {'roomLargeData.largeCapacity':{$gte:totalPersons}}]}
+  ]
+  }
     ).then((toListHotels)=>{
     return (res.status(200).json(toListHotels))  
   })
