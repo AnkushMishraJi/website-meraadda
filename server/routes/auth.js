@@ -173,19 +173,16 @@ router.get("/hotelList", (req,res) =>{
   const {date, boys, girls, isNightParty} = req.body
   console.log(typeof date,typeof boys, typeof girls,typeof isNightParty)
   const totalPersons = boys + girls;
-  console.log(totalPersons)
-  var isGirlsWithBoys;
-  if (boys>=1 && girls>=1){
-    isGirlsWithBoys = true
-  }else{
-    isGirlsWithBoys = false
-  } 
-  businessUser.find(
+  var forTrue;
+  
+  if (isNightParty===true){
+    console.log("True Running")
+      businessUser.find(
   {
     $and:[
     {isBlockedOn:{$ne:date}},
     //{girlsWithBoys:isGirlsWithBoys},
-    {isNightPartyAllowed:isNightParty},
+    {"isNightPartyAllowed":true},
     {$or:[
       {'roomMediumData.mediumCapacity':{$gte:totalPersons}},
       {'roomSmallData.smallCapacity':{$gte:totalPersons}},
@@ -199,7 +196,30 @@ router.get("/hotelList", (req,res) =>{
       console.log(err)
     })
 
+}else{
+   console.log("False Running")
+   businessUser.find(
+  {
+    $and:[
+    {isBlockedOn:{$ne:date}},
+    {$or:[
+      {'roomMediumData.mediumCapacity':{$gte:totalPersons}},
+      {'roomSmallData.smallCapacity':{$gte:totalPersons}},
+      {'roomLargeData.largeCapacity':{$gte:totalPersons}}]}
+  ]
+  }
+    ).then((toListHotels)=>{
+    return (res.status(200).json(toListHotels))  
+  })
+  .catch((err)=>{
+      console.log(err)
+    })
+
+  }
 })
+  
+
+ 
 
 //Incomplete
 router.put("/blockUnblock", (req,res) =>{
@@ -217,6 +237,5 @@ router.put("/blockUnblock", (req,res) =>{
   }
   })
 })
-
 
 module.exports = router;
