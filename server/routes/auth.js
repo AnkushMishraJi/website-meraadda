@@ -8,11 +8,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const requireLogin = require("../middleware/requireLogin");
 
-const userSchema = require("../models/user")
+const userSchema = require("../models/user");
 const clientUser = mongoose.model("ClientUser", userSchema);
 
-const bookingSchema = require("../models/booking")
-const booking = mongoose.model("Booking",bookingSchema)
+const bookingSchema = require("../models/booking");
+const booking = mongoose.model("Booking", bookingSchema);
 
 const { JWT_SECRET } = require("../keys");
 
@@ -22,17 +22,28 @@ router.get("/", (req, res) => {
 
 //bsignup completed
 router.post("/bsignup", (req, res) => {
-  const { hotelName, email, password, location, address, girlsWithBoys, isNightPartyAllowed, roomSmallData, roomMediumData, roomLargeData } = req.body;
-  if (!email || !password || !hotelName || !location ) {
+  const {
+    hotelName,
+    email,
+    password,
+    location,
+    address,
+    girlsWithBoys,
+    isNightPartyAllowed,
+    roomSmallData,
+    roomMediumData,
+    roomLargeData,
+  } = req.body;
+  if (!email || !password || !hotelName || !location) {
     return res.status(400).json({
-      "error":"Please enter all fields"
-      });
+      error: "Please enter all fields",
+    });
   }
   businessUser.findOne({ email: email }).then((savedBusinessUser) => {
     if (savedBusinessUser) {
       return res.status(409).json({
-        "error":"The hotel user already exists"
-        });
+        error: "The hotel user already exists",
+      });
     }
     bcrypt.hash(password, 12).then((hashedpassword) => {
       const BusinessUser = new businessUser({
@@ -45,14 +56,13 @@ router.post("/bsignup", (req, res) => {
         isNightPartyAllowed,
         roomSmallData,
         roomMediumData,
-        roomLargeData
+        roomLargeData,
       });
-      BusinessUser
-        .save()
+      BusinessUser.save()
         .then((BusinessUser) => {
           res.status(201).json({
-            "message":"New hotel user has been created"
-            });
+            message: "New hotel user has been created",
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -66,14 +76,14 @@ router.post("/bsignin", (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({
-      "error":"Please enter all fields"
-      });
+      error: "Please enter all fields",
+    });
   }
   businessUser.findOne({ email: email }).then((savedBusinessUser) => {
     if (!savedBusinessUser) {
       return res.status(422).json({
-        "error": "Invalid Email or Password"
-    });
+        error: "Invalid Email or Password",
+      });
     }
     bcrypt.compare(password, savedBusinessUser.password).then((doMatch) => {
       if (doMatch) {
@@ -90,51 +100,47 @@ router.post("/bsignin", (req, res) => {
 //checknum complete
 router.post("/checknum", (req, res) => {
   const { phoneNumber } = req.body;
-    clientUser.findOne({ phoneNumber: phoneNumber }).then((savedClientUser) => {
+  clientUser.findOne({ phoneNumber: phoneNumber }).then((savedClientUser) => {
     if (savedClientUser) {
-      console.log("User already exists")
-      return res.status(202).json({isUser:true,phoneNumber:phoneNumber})
-      }
-    else {
-        const ClientUser = new clientUser({
-        phoneNumber
+      console.log("User already exists");
+      return res.status(202).json({ isUser: true, phoneNumber: phoneNumber });
+    } else {
+      const ClientUser = new clientUser({
+        phoneNumber,
       });
-      ClientUser
-      .save()
-      .then((ClientUser)=>{
-        res.json({isUser:false,message:"Hello new user"});
-              })
-
+      ClientUser.save().then((ClientUser) => {
+        res.json({ isUser: false, message: "Hello new user" });
+      });
     }
-    
   });
 });
 
 //user signup complete
 router.put("/usignup", (req, res) => {
-  const { name,email,dob, phoneNumber } = req.body;
+  const { name, email, dob, phoneNumber } = req.body;
   // if (!email || !name || !dob ) {
   //   return res.status(400).json({
   //     "error":"Please enter all fields"
   //     });
   // }
-  clientUser.findOneAndUpdate({phoneNumber:phoneNumber},{$set:{name:name,email:email,dob:dob}},
-    function(err){
-      if (err){
-        return console.log(err)
+  clientUser.findOneAndUpdate(
+    { phoneNumber: phoneNumber },
+    { $set: { name: name, email: email, dob: dob } },
+    function (err) {
+      if (err) {
+        return console.log(err);
+      } else {
+        res.json("Saved User");
+        console.log("Saved USer");
       }
-      else {
-      res.json("Saved User")
-      console.log("Saved USer")
     }
-    }
-    
   );
 });
 
 //booking completed
-router.post("/booking", (req,res) => {
-  const { name, boys, girls, checkIn, slot, hotelEmail, roomtype, totalBill } = req.body;
+router.post("/booking", (req, res) => {
+  const { name, boys, girls, checkIn, slot, hotelEmail, roomtype, totalBill } =
+    req.body;
   const Booking = new booking({
     name,
     boys,
@@ -143,99 +149,174 @@ router.post("/booking", (req,res) => {
     slot,
     hotelEmail,
     roomtype,
-    totalBill
+    totalBill,
   });
-  Booking
-  .save()
-  .then((Booking) => {
-          res.status(201).json({
-            "message":"User Booking has been generatd"
-            });
+  Booking.save()
+    .then((Booking) => {
+      res.status(201).json({
+        message: "User Booking has been generatd",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//hotel booking get completed
+router.get("/hotelBooking", (req, res) => {
+  const { hotelEmail } = req.query;
+  booking
+    .find({ hotelEmail: hotelEmail })
+    .then((thisHotelBookings) => {
+      return res.status(200).json(thisHotelBookings);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//Incomplete
+router.get("/hotelList", (req, res) => {
+  const { date, boys, girls, isNightParty } = req.body;
+  console.log(typeof date, typeof boys, typeof girls, typeof isNightParty);
+  const totalPersons = boys + girls;
+  var isGirlsWithBoys;
+
+  if (girls && boys) {
+    isGirlsWithBoys = true;
+  } else {
+    isGirlsWithBoys = false;
+  }
+
+  if (isNightParty === true) {
+    //isNightParty True
+    console.log("isNightParty True Running");
+    if (isGirlsWithBoys == true) {
+      //isGirlsWithBoys true
+      console.log("isGirlsWithBoys True Running");
+      businessUser
+        .find({
+          $and: [
+            { isBlockedOn: { $ne: date } },
+            { girlsWithBoys: isGirlsWithBoys },
+            { isNightPartyAllowed: true },
+            {
+              $or: [
+                { "roomMediumData.mediumCapacity": { $gte: totalPersons } },
+                { "roomSmallData.smallCapacity": { $gte: totalPersons } },
+                { "roomLargeData.largeCapacity": { $gte: totalPersons } },
+              ],
+            },
+          ],
+        })
+        .then((toListHotels) => {
+          return res.status(200).json(toListHotels);
         })
         .catch((err) => {
           console.log(err);
         });
-});
-
-//hotel booking get completed
-router.get("/hotelBooking", (req,res) =>{
-  const {hotelEmail} = req.query;
-  booking.find({hotelEmail:hotelEmail}).then((thisHotelBookings)=>{
-    return res.status(200).json(thisHotelBookings)
-  })
-  .catch((err) => {
+      //code
+    } else {
+      //code
+      //is isGirlsWithBoys false
+      console.log("GirlswithBoys False Running");
+      businessUser
+        .find({
+          $and: [
+            { isBlockedOn: { $ne: date } },
+            { isNightPartyAllowed: true },
+            {
+              $or: [
+                { "roomMediumData.mediumCapacity": { $gte: totalPersons } },
+                { "roomSmallData.smallCapacity": { $gte: totalPersons } },
+                { "roomLargeData.largeCapacity": { $gte: totalPersons } },
+              ],
+            },
+          ],
+        })
+        .then((toListHotels) => {
+          return res.status(200).json(toListHotels);
+        })
+        .catch((err) => {
           console.log(err);
         });
-}) 
+      //code
+    }
+  } else {
+    //isNightParty False
+    console.log("isNightParty False Running");
+    if (isGirlsWithBoys == true) {
+      //code
+      //isGirlsWithBoys True
+      console.log("GirlswithBoys True Running");
+      businessUser
+        .find({
+          $and: [
+            { isBlockedOn: { $ne: date } },
+            { girlsWithBoys: isGirlsWithBoys },
+            {
+              $or: [
+                { "roomMediumData.mediumCapacity": { $gte: totalPersons } },
+                { "roomSmallData.smallCapacity": { $gte: totalPersons } },
+                { "roomLargeData.largeCapacity": { $gte: totalPersons } },
+              ],
+            },
+          ],
+        })
+        .then((toListHotels) => {
+          return res.status(200).json(toListHotels);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      //code
+    } else {
+      //is Girls with Boys false
+      console.log("GirlswithBoys False Running");
+      businessUser
+        .find({
+          $and: [
+            { isBlockedOn: { $ne: date } },
+            {
+              $or: [
+                { "roomMediumData.mediumCapacity": { $gte: totalPersons } },
+                { "roomSmallData.smallCapacity": { $gte: totalPersons } },
+                { "roomLargeData.largeCapacity": { $gte: totalPersons } },
+              ],
+            },
+          ],
+        })
+        .then((toListHotels) => {
+          return res.status(200).json(toListHotels);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+});
 
 //Incomplete
-router.get("/hotelList", (req,res) =>{
-  const {date, boys, girls, isNightParty} = req.body
-  console.log(typeof date,typeof boys, typeof girls,typeof isNightParty)
-  const totalPersons = boys + girls;
-  var forTrue;
-  
-  if (isNightParty===true){
-    console.log("True Running")
-      businessUser.find(
-  {
-    $and:[
-    {isBlockedOn:{$ne:date}},
-    //{girlsWithBoys:isGirlsWithBoys},
-    {"isNightPartyAllowed":true},
-    {$or:[
-      {'roomMediumData.mediumCapacity':{$gte:totalPersons}},
-      {'roomSmallData.smallCapacity':{$gte:totalPersons}},
-      {'roomLargeData.largeCapacity':{$gte:totalPersons}}]}
-  ]
-  }
-    ).then((toListHotels)=>{
-    return (res.status(200).json(toListHotels))  
-  })
-  .catch((err)=>{
-      console.log(err)
-    })
-
-}else{
-   console.log("False Running")
-   businessUser.find(
-  {
-    $and:[
-    {isBlockedOn:{$ne:date}},
-    {$or:[
-      {'roomMediumData.mediumCapacity':{$gte:totalPersons}},
-      {'roomSmallData.smallCapacity':{$gte:totalPersons}},
-      {'roomLargeData.largeCapacity':{$gte:totalPersons}}]}
-  ]
-  }
-    ).then((toListHotels)=>{
-    return (res.status(200).json(toListHotels))  
-  })
-  .catch((err)=>{
-      console.log(err)
-    })
-
-  }
-})
-  
-
- 
-
-//Incomplete
-router.put("/blockUnblock", (req,res) =>{
-  const {isBlockedOn,email} = req.body;
-  businessUser.findOneAndUpdate({email:email},{
-    $push:{isBlockedOn:isBlockedOn}
-  },{
-    new:true
-  }).exec((err,result)=>{
-    if (err){
-    return res.status(422).json({error:err})
-  }else{
-    res.json(result)
-    console.log(isBlockedOn)
-  }
-  })
-})
+router.put("/blockUnblock", (req, res) => {
+  const { isBlockedOn, email } = req.body;
+  businessUser
+    .findOneAndUpdate(
+      { email: email },
+      {
+        $push: { isBlockedOn: isBlockedOn },
+      },
+      {
+        new: true,
+      }
+    )
+    .exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result);
+        console.log(isBlockedOn);
+      }
+    });
+});
 
 module.exports = router;
