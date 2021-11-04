@@ -10,6 +10,7 @@ import HotelDashboard from "./components/screens/Bpage";
 import UserSignin from "./components/screens/Usignin";
 import UserPhoneCheck from "./components/screens/Uphone";
 import UserSignup from "./components/screens/Usignup";
+import HotelBlocker from "./components/screens/BHotelBlocker";
 
 
 
@@ -42,6 +43,9 @@ function App() {
         </Route>
         < Route path="/hoteladmin">
         <HotelDashboard />
+        </Route>
+        < Route path="/blocker">
+        <HotelBlocker />
         </Route>
         </BrowserRouter>
     
