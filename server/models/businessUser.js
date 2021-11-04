@@ -1,47 +1,41 @@
 const mongoose = require("mongoose");
 
-
 //Room Schema
 const roomSchemaSmall = new mongoose.Schema({
-smallPrice:{
+  smallPrice: {
     type: String,
-    
   },
-smallPic:{
+  smallPic: {
     type: String,
-    
   },
-smallCapacity:{
+  smallCapacity: {
     type: Number,
-    
-  }
-})
+  },
+});
 
 const roomSchemaMedium = new mongoose.Schema({
-  mediumPrice:{
-      type: String,
-          },
-  mediumPic:{
-      type: String,
-          },
-  mediumCapacity:{
-      type: Number,
-          }
-  })
+  mediumPrice: {
+    type: String,
+  },
+  mediumPic: {
+    type: String,
+  },
+  mediumCapacity: {
+    type: Number,
+  },
+});
 
-  const roomSchemaLarge = new mongoose.Schema({
-    largePrice:{
-        type: String,
-              },
-    largePic:{
-        type: String,
-              },
-    largeCapacity:{
-        type: Number,
-              }
-    })
-  
-
+const roomSchemaLarge = new mongoose.Schema({
+  largePrice: {
+    type: String,
+  },
+  largePic: {
+    type: String,
+  },
+  largeCapacity: {
+    type: Number,
+  },
+});
 
 //Business User Schema
 const businessUserSchema = new mongoose.Schema({
@@ -57,44 +51,40 @@ const businessUserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  location:{
+  location: {
     type: String,
     required: true,
   },
-  address:{
+  address: {
     type: String,
     required: true,
   },
-  isNightPartyAllowed:{
-    type:Boolean,
-    required: true,
-  },
-  isBlockedOn:{type:Object},
-  girlsWithBoys :{
+  isNightPartyAllowed: {
     type: Boolean,
-    required:false
+    required: true,
   },
-  isVerified:{
+  isBlockedOn: { type: [String] },
+  girlsWithBoys: {
     type: Boolean,
     required: false,
   },
-  
-  roomSmallData:{
-      type:roomSchemaSmall,
-      required:false
+  isVerified: {
+    type: Boolean,
+    required: false,
   },
-  roomMediumData:{
-      type:roomSchemaMedium,
-      required:false
+
+  roomSmallData: {
+    type: roomSchemaSmall,
+    required: false,
   },
-  roomLargeData:{
-      type:roomSchemaLarge,
-      required:false
-  }
-})
-
-
-
-
+  roomMediumData: {
+    type: roomSchemaMedium,
+    required: false,
+  },
+  roomLargeData: {
+    type: roomSchemaLarge,
+    required: false,
+  },
+});
 
 module.exports = businessUserSchema;

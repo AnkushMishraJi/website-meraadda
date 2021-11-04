@@ -175,9 +175,9 @@ router.get("/hotelBooking", (req, res) => {
     });
 });
 
-//Incomplete
+//Search Filter Home Page User
 router.get("/hotelList", (req, res) => {
-  const { date, boys, girls, isNightParty } = req.body;
+  const { date, boys, girls, isNightParty } = req.query;
   console.log(typeof date, typeof boys, typeof girls, typeof isNightParty);
   const totalPersons = boys + girls;
   var isGirlsWithBoys;
@@ -296,14 +296,14 @@ router.get("/hotelList", (req, res) => {
   }
 });
 
-//Incomplete
-router.put("/blockUnblock", (req, res) => {
+//BlockDate
+router.post("/blockUnblock", (req, res) => {
   const { isBlockedOn, email } = req.body;
   businessUser
     .findOneAndUpdate(
       { email: email },
       {
-        $push: { isBlockedOn: isBlockedOn },
+        $set: { isBlockedOn: isBlockedOn },
       },
       {
         new: true,
@@ -316,6 +316,20 @@ router.put("/blockUnblock", (req, res) => {
         res.json(result);
         console.log(isBlockedOn);
       }
+    });
+});
+
+//Get Block Dates
+router.get("/getBlockedDates", (req, res) => {
+  const { email } = req.query;
+  businessUser
+    .find({ email: email })
+    .populate()
+    .then((blockedOnDate) => {
+      return res.status(200).json(blockedOnDate);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 
