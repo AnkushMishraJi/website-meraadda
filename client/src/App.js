@@ -11,44 +11,47 @@ import UserSignin from "./components/screens/Usignin";
 import UserPhoneCheck from "./components/screens/Uphone";
 import UserSignup from "./components/screens/Usignup";
 import HotelBlocker from "./components/screens/BHotelBlocker";
-
-
+import UserHotel from "./components/screens/UserHotel";
+import HotelList from "./components/screens/HotelList";
 
 // import { reducer, initialState } from "./reducers/userReducer";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 
-
-
 function App() {
-    return (
-     <BrowserRouter>
-        <Navbar />
-        <Route exact path="/">
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Route exact path="/">
         <Home />
-        </Route>
-        <Route path="/bsignin">
+      </Route>
+      <Route path="/bsignin">
         <Signin />
-        </Route>
-        < Route path="/bsignup">
+      </Route>
+      <Route path="/bsignup">
         <Signup />
-        </Route>
-        < Route path="/usignin">
+      </Route>
+      <Route path="/usignin">
         <UserSignin />
-        </Route>
-        < Route path="/uphone">
+      </Route>
+      <Route path="/uphone">
         <UserPhoneCheck />
-        </Route>
-        < Route path="/usignup">
+      </Route>
+      <Route path="/usignup">
         <UserSignup />
-        </Route>
-        < Route path="/hoteladmin">
+      </Route>
+      <Route path="/hoteladmin">
         <HotelDashboard />
-        </Route>
-        < Route path="/blocker">
+      </Route>
+      <Route path="/blocker">
         <HotelBlocker />
-        </Route>
-        </BrowserRouter>
-    
+      </Route>
+      <Route path="/userhotel">
+        <UserHotel />
+      </Route>
+      <Route path="/hotelList">
+        <HotelList />
+      </Route>
+    </BrowserRouter>
   );
 }
 

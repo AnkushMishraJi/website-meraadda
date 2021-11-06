@@ -1,80 +1,81 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "../../App.css";
-import { Container, DatePicker, TimePicker} from "react-materialize"; 
+import { Container, DatePicker } from "react-materialize";
 
-import M from "materialize"
+const Home = () => {
+  const newdate = new Date();
+  const history = useHistory();
+  const [date, setDate] = useState(newdate.toDateString());
+  const [timeClock, setTimeClock] = useState([]);
+  const [boys, setBoys] = useState(0);
+  const [girls, setGirls] = useState(0);
+  const [isNightParty, setIsNightParty] = useState(false);
 
-const Home = () =>{
+  const searchFilter = () => {
+    localStorage.setItem("date", date);
+    localStorage.setItem("boys", boys);
+    localStorage.setItem("girls", girls);
+    localStorage.setItem("isNightParty", isNightParty);
+    history.push("/hotelList");
+  };
 
-const [date,setDate] = useState(new Date());
-const [time,setTime] = useState();
-const [boys,setBoys] = useState(0);
-const [girls,setGirls] =useState(0);
-    return (
+  return (
     <>
-    <div className="mycard card">
-      <div className="auth-card input-field">
-        <h5>Party Rooms at great prices</h5>
-        <Container>
-        <DatePicker
-          selected={date}
-          placeholder="date of birth"
-          onChange={(date) => {
-            setDate(date.toDateString());
-            console.log(date)
-            console.log(typeof date)
+      <div className="mycard card">
+        <div className="auth-card input-field">
+          <h5>Party Rooms at great prices</h5>
+          <Container>
+            <DatePicker
+              selected={date}
+              placeholder="date of party"
+              onChange={(date) => {
+                var dateWIthoutTime = new Date(date);
+                setDate(
+                  new Date(dateWIthoutTime.setHours(0, 0, 0, 0)).toDateString()
+                );
+              }}
+              placeholder="Enter Date"
+              value={date}
+            />
+          </Container>
 
-          }}
-          placeholder="Enter Date"
-          value={date}
-        />
-      </Container>  
-        <Container>
-            <p>Select Time</p>
-        <TimePicker
-          selected={time}
-          placeholder="Select Time"
-          onChange={() => {
-            setTime(time);                     
-          }}
-          placeholder="Select Time"
-        />
-      </Container> 
-        <input
-          type="number"
-          placeholder="Boys"
-          value={boys}
-          onChange={
-            (e)=>{setBoys(parseInt(e.target.value))
-            }
-          }
-          min="0"
-          max="99"
-        />
-        <input
-          type="number"
-          placeholder="Girls"
-          value={girls}
-          onChange={
-            (e)=>{
-              setGirls(parseInt(e.target.value))
+          <input
+            class="timepicker"
+            placeholder="Enter time"
+            value={timeClock}
+            onChange={setTimeClock}
+          />
+
+          <input
+            type="number"
+            placeholder="Boys"
+            value={boys}
+            onChange={(e) => {
+              setBoys(parseInt(e.target.value));
+            }}
+            min="0"
+            max="99"
+          />
+          <input
+            type="number"
+            placeholder="Girls"
+            value={girls}
+            onChange={(e) => {
+              setGirls(parseInt(e.target.value));
               console.log(girls);
-            } 
-          }
-          min="0"
-          max="99"
-        />
-        <h6>Total No. Of. People = {boys+girls}</h6>
-        <button
-          className="btn waves-effect waves-light #1e88e5 blue darken-1"
-        >
-          Search
-        </button>
-        
+            }}
+            min="0"
+            max="99"
+          />
+          <h6>Total No. Of. People = {boys + girls}</h6>
+          <a className="waves-effect waves-light btn" onClick={searchFilter}>
+            Submit
+          </a>
         </div>
-    </div>
+      </div>
     </>
-    )
-}
+  );
+};
 
-export default Home
+export default Home;

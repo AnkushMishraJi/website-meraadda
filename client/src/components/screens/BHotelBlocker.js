@@ -16,17 +16,16 @@ const HotelBlocker = () => {
       .then((data) => {
         setIsBlockedOn(data[0].isBlockedOn);
         console.log(data[0].isBlockedOn);
-        setIsBlockedOn(data[0].isBlockedOn);
       });
   }, []);
 
   const Block = () => {
     const arrOfDates = isBlockedOn.map((ms) => {
-      var dateWithTime = new Date(ms);
+      var dateWithoutTime = new Date(ms);
 
-      return new Date(dateWithTime.setHours(0, 0, 0, 0)).toDateString();
+      return new Date(dateWithoutTime.setHours(0, 0, 0, 0)).toDateString();
     });
-    console.log(typeof arrOfDates);
+    console.log(arrOfDates);
     fetch("/blockUnblock", {
       method: "post",
       headers: {

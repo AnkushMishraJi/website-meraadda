@@ -64,6 +64,7 @@ const businessUserSchema = new mongoose.Schema({
     required: true,
   },
   isBlockedOn: { type: [String] },
+  mainPic: { type: String, required: false },
   girlsWithBoys: {
     type: Boolean,
     required: false,

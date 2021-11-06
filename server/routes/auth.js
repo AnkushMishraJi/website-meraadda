@@ -28,6 +28,7 @@ router.post("/bsignup", (req, res) => {
     password,
     location,
     address,
+    mainPic,
     girlsWithBoys,
     isNightPartyAllowed,
     roomSmallData,
@@ -53,6 +54,7 @@ router.post("/bsignup", (req, res) => {
         location,
         address,
         girlsWithBoys,
+        mainPic,
         isNightPartyAllowed,
         roomSmallData,
         roomMediumData,
@@ -177,18 +179,24 @@ router.get("/hotelBooking", (req, res) => {
 
 //Search Filter Home Page User
 router.get("/hotelList", (req, res) => {
-  const { date, boys, girls, isNightParty } = req.query;
-  console.log(typeof date, typeof boys, typeof girls, typeof isNightParty);
+  var { date, boys, girls, isNightParty } = req.query;
+  boys = parseInt(boys);
+  girls = parseInt(girls);
+  isNightParty = isNightParty === "true";
+  console.log(typeof date, typeof boys, typeof girls, isNightParty);
   const totalPersons = boys + girls;
+  console.log(totalPersons);
   var isGirlsWithBoys;
 
-  if (girls && boys) {
+  if (girls > 0 && boys > 0) {
     isGirlsWithBoys = true;
   } else {
     isGirlsWithBoys = false;
   }
+  console.log(isGirlsWithBoys);
+  console.log(isNightParty);
 
-  if (isNightParty === true) {
+  if (isNightParty == true) {
     //isNightParty True
     console.log("isNightParty True Running");
     if (isGirlsWithBoys == true) {
