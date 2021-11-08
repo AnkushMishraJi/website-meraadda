@@ -6,13 +6,12 @@ const HotelList = () => {
 
   useEffect(() => {
     const date = localStorage.getItem("date");
-    const boys = localStorage.getItem("boys");
+    const totalPersons = localStorage.getItem("totalPersons");
     const girls = localStorage.getItem("girls");
     const isNightParty = localStorage.getItem("isNightParty");
-    const totalPersons = parseInt(boys) + parseInt(girls);
 
     fetch(
-      `/hotelList?date=${date}&boys=${boys}&girls=${girls}&isNightParty=${isNightParty}`,
+      `/hotelList?date=${date}&totalPersons=${totalPersons}&girls=${girls}&isNightParty=${isNightParty}`,
       {
         method: "get",
         headers: {
@@ -39,23 +38,21 @@ const HotelList = () => {
         const medCap = parseInt(oneHotel.roomMediumData.mediumCapacity);
         const largeCap = parseInt(oneHotel.roomLargeData.largeCapacity);
 
-        const newtotal =
-          parseInt(localStorage.getItem("boys")) +
-          parseInt(localStorage.getItem("girls"));
+        const newtotal = parseInt(localStorage.getItem("totalPersons"));
 
         console.log(newtotal, " is new total");
         console.log(smallCap, medCap, largeCap);
 
         const price = () => {
-          if (newtotal < smallCap) {
+          if (newtotal <= smallCap) {
             console.log("small running");
             return smallPrice;
           }
-          if (newtotal < medCap) {
+          if (newtotal <= medCap) {
             console.log("med running");
             return medPrice;
           }
-          if (newtotal < largeCap) {
+          if (newtotal <= largeCap) {
             console.log("large running");
             return largePrice;
           }

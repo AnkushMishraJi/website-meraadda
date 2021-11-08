@@ -141,11 +141,19 @@ router.put("/usignup", (req, res) => {
 
 //booking completed
 router.post("/booking", (req, res) => {
-  const { name, boys, girls, checkIn, slot, hotelEmail, roomtype, totalBill } =
-    req.body;
+  const {
+    name,
+    totalPersons,
+    girls,
+    checkIn,
+    slot,
+    hotelEmail,
+    roomtype,
+    totalBill,
+  } = req.body;
   const Booking = new booking({
     name,
-    boys,
+    totalPersons,
     girls,
     checkIn,
     slot,
@@ -179,20 +187,15 @@ router.get("/hotelBooking", (req, res) => {
 
 //Search Filter Home Page User
 router.get("/hotelList", (req, res) => {
-  var { date, boys, girls, isNightParty } = req.query;
-  boys = parseInt(boys);
-  girls = parseInt(girls);
+  var { date, totalPersons, girls, isNightParty } = req.query;
+  totalPersons = parseInt(totalPersons);
   isNightParty = isNightParty === "true";
   console.log(typeof date, typeof boys, typeof girls, isNightParty);
-  const totalPersons = boys + girls;
   console.log(totalPersons);
   var isGirlsWithBoys;
+  if (girls == "true") isGirlsWithBoys = true;
+  else isGirlsWithBoys = false;
 
-  if (girls > 0 && boys > 0) {
-    isGirlsWithBoys = true;
-  } else {
-    isGirlsWithBoys = false;
-  }
   console.log(isGirlsWithBoys);
   console.log(isNightParty);
 

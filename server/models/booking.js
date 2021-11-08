@@ -3,33 +3,32 @@ const mongoose = require("mongoose");
 const bookingSchema = new mongoose.Schema({
   name: {
     type: String,
-    required:true
-      },
-  boys: {
+    required: true,
+  },
+  totalPersons: {
     type: String,
-    required:false
-      },
+    required: true,
+  },
   girls: {
-    type: String,
-    required:false
-      },
+    type: Boolean,
+    required: true,
+  },
   checkIn: {
     type: String,
-    required:true
-      },
+    required: true,
+  },
   slot: {
     type: String,
-    required:true
-      },
+    required: true,
+  },
   hotelEmail: {
     type: String,
-    required:true
-      },
+    required: true,
+  },
   totalBill: {
     type: String,
-    required:true
-      },
-    
+    required: true,
+  },
 });
 
 module.exports = bookingSchema;

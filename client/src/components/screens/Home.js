@@ -8,13 +8,13 @@ const Home = () => {
   const history = useHistory();
   const [date, setDate] = useState(newdate.toDateString());
   const [timeClock, setTimeClock] = useState([]);
-  const [boys, setBoys] = useState(0);
-  const [girls, setGirls] = useState(0);
+  const [totalPersons, setTotalPersons] = useState(0);
+  const [girls, setGirls] = useState(false);
   const [isNightParty, setIsNightParty] = useState(false);
 
   const searchFilter = () => {
     localStorage.setItem("date", date);
-    localStorage.setItem("boys", boys);
+    localStorage.setItem("totalPersons", totalPersons);
     localStorage.setItem("girls", girls);
     localStorage.setItem("isNightParty", isNightParty);
     history.push("/hotelList");
@@ -35,8 +35,8 @@ const Home = () => {
                   new Date(dateWIthoutTime.setHours(0, 0, 0, 0)).toDateString()
                 );
               }}
-              placeholder="Enter Date"
               value={date}
+              placeholder="Enter Date"
             />
           </Container>
 
@@ -46,29 +46,29 @@ const Home = () => {
             value={timeClock}
             onChange={setTimeClock}
           />
-
           <input
             type="number"
-            placeholder="Boys"
-            value={boys}
+            placeholder="Total Persons"
+            value={totalPersons}
             onChange={(e) => {
-              setBoys(parseInt(e.target.value));
+              setTotalPersons(parseInt(e.target.value));
             }}
             min="0"
             max="99"
           />
-          <input
-            type="number"
-            placeholder="Girls"
-            value={girls}
-            onChange={(e) => {
-              setGirls(parseInt(e.target.value));
-              console.log(girls);
-            }}
-            min="0"
-            max="99"
-          />
-          <h6>Total No. Of. People = {boys + girls}</h6>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                onClick={(e) => {
+                  setGirls(!girls);
+                  console.log(girls);
+                }}
+              />
+              <span>Ladies Included?</span>
+            </label>
+          </div>
+          <h6>Total No. Of. People = {totalPersons}</h6>
           <a className="waves-effect waves-light btn" onClick={searchFilter}>
             Submit
           </a>
