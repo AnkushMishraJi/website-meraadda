@@ -82,7 +82,7 @@ const HotelList = () => {
                 LArge Room :{largePrice} Capacity:
                 {largeCap}
               </h6>
-              <h5>hello:{price()}</h5>
+              <h5>Price:{price()}</h5>
             </div>
           </div>
         );

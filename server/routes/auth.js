@@ -28,14 +28,14 @@ router.post("/bsignup", (req, res) => {
     password,
     location,
     address,
-    mainPic,
+    mainPicUrl,
     girlsWithBoys,
     isNightPartyAllowed,
     roomSmallData,
     roomMediumData,
     roomLargeData,
   } = req.body;
-  if (!email || !password || !hotelName || !location) {
+  if (!email || !password || !hotelName || !location || !mainPicUrl) {
     return res.status(400).json({
       error: "Please enter all fields",
     });
@@ -54,7 +54,7 @@ router.post("/bsignup", (req, res) => {
         location,
         address,
         girlsWithBoys,
-        mainPic,
+        mainPicUrl,
         isNightPartyAllowed,
         roomSmallData,
         roomMediumData,

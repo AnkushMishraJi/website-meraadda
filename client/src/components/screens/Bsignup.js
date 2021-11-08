@@ -12,41 +12,42 @@ function Signup() {
   const [address, setAddress] = useState("");
   const [girlsWithBoys, setGirlsWithBoys] = useState(false);
   const [isNightPartyAllowed, setIsNightPartyAllowed] = useState(false);
-  const [smallPrice,setSmallPrice] = useState("");
-  const [smallPic,setSmallPic] = useState("");
-  const [smallCapacity,setSmallCapacity] = useState("");
-  const [mediumPrice,setMediumPrice] = useState("");
-  const [mediumPic,setMediumPic] = useState("");
-  const [mediumCapacity,setMediumCapacity] = useState("");
-  const [largePrice,setLargePrice] = useState("");
-  const [largePic,setLargePic] = useState("");
-  const [largeCapacity,setLargeCapacity] = useState("");
-  
+
+  const [mainPic, setMainPic] = useState("");
+  const [mainPicUrl, setMainPicUrl] = useState("");
+
+  const [smallPrice, setSmallPrice] = useState("");
+  const [smallPic, setSmallPic] = useState("");
+  const [smallCapacity, setSmallCapacity] = useState("");
+  const [mediumPrice, setMediumPrice] = useState("");
+  const [mediumPic, setMediumPic] = useState("");
+  const [mediumCapacity, setMediumCapacity] = useState("");
+  const [largePrice, setLargePrice] = useState("");
+  const [largePic, setLargePic] = useState("");
+  const [largeCapacity, setLargeCapacity] = useState("");
+
   let roomSmallData = {
     smallPrice,
     smallPic,
-    smallCapacity
+    smallCapacity,
   };
   let roomMediumData = {
     mediumPrice,
     mediumPic,
-    mediumCapacity
+    mediumCapacity,
   };
   let roomLargeData = {
     largePrice,
     largePic,
-    largeCapacity
+    largeCapacity,
   };
-
 
   //for checkboxes
   const [checkedRoomSmall, setCheckedRoomSmall] = useState(false);
   const [checkedRoomMedium, setCheckedRoomMedium] = useState(false);
   const [checkedRoomLarge, setCheckedRoomLarge] = useState(false);
-  
- 
-  const PostData = () => {
 
+  const PostData = () => {
     if (
       !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
@@ -63,42 +64,68 @@ function Signup() {
         classes: "#d32f2f red darken-2",
       });
     }
-        if (!hotelName || !email || !password || !confirm || !location || !address){
+    if (
+      !hotelName ||
+      !email ||
+      !password ||
+      !confirm ||
+      !location ||
+      !address
+    ) {
       return M.toast({
         html: "Please enter all fields",
         classes: "#d32f2f red darken-2",
       });
     }
-    console.log("btn press");
-    fetch("/bsignup", {
+
+    const data = new FormData();
+    data.append("file", mainPic);
+    data.append("upload_preset", "meraadda-web");
+    data.append("cloud_name", "mera-adda");
+    fetch("	https://api.cloudinary.com/v1_1/mera-adda/image/upload", {
       method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        hotelName,
-        location,
-        address,
-        girlsWithBoys,
-        isNightPartyAllowed,
-        roomSmallData,
-        roomMediumData,
-        roomLargeData
-      }),
+      body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.error) {
-          M.toast({ html: data.error, classes: "#d32f2f red darken-2" });
-        } else {
-          M.toast({
-            html: "Saved Successfuly",
-            classes: "#43a047 green darken-1",
-          });
-          history.push("/bsignin");
-        }
+        setMainPicUrl(data.url);
+        console.log("photo is uploaded");
+      })
+      .then(
+        fetch("/bsignup", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            hotelName,
+            location,
+            address,
+            mainPicUrl,
+            girlsWithBoys,
+            isNightPartyAllowed,
+            roomSmallData,
+            roomMediumData,
+            roomLargeData,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.error) {
+              M.toast({ html: data.error, classes: "#d32f2f red darken-2" });
+            } else {
+              M.toast({
+                html: "Saved Successfuly",
+                classes: "#43a047 green darken-1",
+              });
+              history.push("/bsignin");
+            }
+          })
+      )
+      .catch((err) => {
+        console.log(err);
       })
       .catch((err) => {
         console.log(err);
@@ -131,7 +158,6 @@ function Signup() {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-            console.log(setPassword);
           }}
         />
         <input
@@ -142,6 +168,18 @@ function Signup() {
             setConfirm(e.target.value);
           }}
         />
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>File</span>
+            <input
+              type="file"
+              onChange={(e) => setMainPic(e.target.files[0])}
+            />
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" />
+          </div>
+        </div>
         <input
           type="text"
           placeholder="location"
@@ -158,138 +196,167 @@ function Signup() {
             setAddress(e.target.value);
           }}
         />
-        <div><label>
-        <input type="checkbox" value={girlsWithBoys} onClick={(e)=>{setGirlsWithBoys(!girlsWithBoys)}} />
-        <span>Are girls allowed with boys</span></label>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              value={girlsWithBoys}
+              onClick={(e) => {
+                setGirlsWithBoys(!girlsWithBoys);
+              }}
+            />
+            <span>Are girls allowed with boys</span>
+          </label>
 
-        <label>
-        <input type="checkbox" value={isNightPartyAllowed} onClick={(e)=>{setIsNightPartyAllowed(!isNightPartyAllowed)}} />
-        <span>Is Night Party Allowed ?</span></label>
+          <label>
+            <input
+              type="checkbox"
+              value={isNightPartyAllowed}
+              onClick={(e) => {
+                setIsNightPartyAllowed(!isNightPartyAllowed);
+              }}
+            />
+            <span>Is Night Party Allowed ?</span>
+          </label>
 
-
-        <div><label>
-        <input type="checkbox" value={checkedRoomSmall} onClick={(e)=>{setCheckedRoomSmall(!checkedRoomSmall)}} />
-        <span>Small Room</span>
-        {checkedRoomSmall ? (
           <div>
-             <input
-          type="text"
-          placeholder="price for small room"
-          value={smallPrice}
-          onChange={(e) => {
-            setSmallPrice(e.target.value);
-   
-          }}
-          />
+            <label>
+              <input
+                type="checkbox"
+                value={checkedRoomSmall}
+                onClick={(e) => {
+                  setCheckedRoomSmall(!checkedRoomSmall);
+                }}
+              />
+              <span>Small Room</span>
+              {checkedRoomSmall ? (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="price for small room"
+                    value={smallPrice}
+                    onChange={(e) => {
+                      setSmallPrice(e.target.value);
+                    }}
+                  />
 
-          <input
-          type="text"
-          placeholder="upload pictures for small room"
-          value={smallPic}
-          onChange={(e) => {
-            setSmallPic(e.target.value);
-     
-          }}
-          />
+                  <input
+                    type="text"
+                    placeholder="upload pictures for small room"
+                    value={smallPic}
+                    onChange={(e) => {
+                      setSmallPic(e.target.value);
+                    }}
+                  />
 
-          <input
-          type="text"
-          placeholder="capacity of small room"
-          value={smallCapacity}
-          onChange={(e) => {
-            setSmallCapacity(e.target.value);
-          }}
-          />
+                  <input
+                    type="text"
+                    placeholder="capacity of small room"
+                    value={smallCapacity}
+                    onChange={(e) => {
+                      setSmallCapacity(e.target.value);
+                    }}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </label>
           </div>
-        
-        
-               ) : (<div></div>) }
-               </label>
-               </div>
 
-      
-        <div><label>
-        <input type="checkbox" value={checkedRoomMedium} onClick={(e)=>{setCheckedRoomMedium(!checkedRoomMedium)}} />
-        <span>Medium Room</span>
-        {checkedRoomMedium ? (
           <div>
-             <input
-          type="text"
-          placeholder="price for Medium Room"
-          value={mediumPrice}
-          onChange={(e) => {
-            setMediumPrice(e.target.value);
-      
-          }}/>
+            <label>
+              <input
+                type="checkbox"
+                value={checkedRoomMedium}
+                onClick={(e) => {
+                  setCheckedRoomMedium(!checkedRoomMedium);
+                }}
+              />
+              <span>Medium Room</span>
+              {checkedRoomMedium ? (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="price for Medium Room"
+                    value={mediumPrice}
+                    onChange={(e) => {
+                      setMediumPrice(e.target.value);
+                    }}
+                  />
 
-          <input
-          type="text"
-          placeholder="upload pictures for Medium Room"
-          value={mediumPic}
-          onChange={(e) => {
-            setMediumPic(e.target.value);
-     
-          }}/>
+                  <input
+                    type="text"
+                    placeholder="upload pictures for Medium Room"
+                    value={mediumPic}
+                    onChange={(e) => {
+                      setMediumPic(e.target.value);
+                    }}
+                  />
 
-          <input
-          type="text"
-          placeholder="capacity of Medium Room"
-          value={mediumCapacity}
-          onChange={(e) => {
-            setMediumCapacity(e.target.value);
-        
-          }}/>
+                  <input
+                    type="text"
+                    placeholder="capacity of Medium Room"
+                    value={mediumCapacity}
+                    onChange={(e) => {
+                      setMediumCapacity(e.target.value);
+                    }}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </label>
           </div>
-        
-        
-               ) : (<div></div>) }
-               </label>
-               </div>
 
-
-        <div><label>
-        <input type="checkbox" value={checkedRoomLarge} onClick={(e)=>{setCheckedRoomLarge(!checkedRoomLarge)}} />
-        <span>Large Room</span>
-        {checkedRoomLarge ? (
           <div>
-             <input
-          type="text"
-          placeholder="price for Large room"
-          value={largePrice}
-          onChange={(e) => {
-            setLargePrice(e.target.value);
-        
-          }}/>
+            <label>
+              <input
+                type="checkbox"
+                value={checkedRoomLarge}
+                onClick={(e) => {
+                  setCheckedRoomLarge(!checkedRoomLarge);
+                }}
+              />
+              <span>Large Room</span>
+              {checkedRoomLarge ? (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="price for Large room"
+                    value={largePrice}
+                    onChange={(e) => {
+                      setLargePrice(e.target.value);
+                    }}
+                  />
 
-          <input
-          type="text"
-          placeholder="upload pictures for Large room"
-          value={largePic}
-          onChange={(e) => {
-            setLargePic(e.target.value);
-   
-          }}/>
+                  <input
+                    type="text"
+                    placeholder="upload pictures for Large room"
+                    value={largePic}
+                    onChange={(e) => {
+                      setLargePic(e.target.value);
+                    }}
+                  />
 
-          <input
-          type="text"
-          placeholder="capacity of Large room"
-          value={largeCapacity}
-          onChange={(e) => {
-            setLargeCapacity(e.target.value);
-
-          }}/>
+                  <input
+                    type="text"
+                    placeholder="capacity of Large room"
+                    value={largeCapacity}
+                    onChange={(e) => {
+                      setLargeCapacity(e.target.value);
+                    }}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </label>
           </div>
-        
-        
-               ) : (<div></div>) }
-               </label>
-               </div>
-        
-
-      </div>
+        </div>
         <button
           className="btn waves-effect waves-light #1e88e5 blue darken-1"
-          onClick={(e)=>PostData()}
+          onClick={(e) => PostData()}
         >
           Sign Up
         </button>
