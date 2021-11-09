@@ -25,21 +25,27 @@ function Signup() {
   const [largePrice, setLargePrice] = useState("");
   const [largePic, setLargePic] = useState("");
   const [largeCapacity, setLargeCapacity] = useState("");
+  const [smallNightPrice, setSmallNightPrice] = useState("");
+  const [mediumNightPrice, setMediumNightPrice] = useState("");
+  const [largeNightPrice, setLargeNightPrice] = useState("");
 
   let roomSmallData = {
     smallPrice,
     smallPic,
     smallCapacity,
+    smallNightPrice,
   };
   let roomMediumData = {
     mediumPrice,
     mediumPic,
     mediumCapacity,
+    mediumNightPrice,
   };
   let roomLargeData = {
     largePrice,
     largePic,
     largeCapacity,
+    largeNightPrice,
   };
 
   //for checkboxes
@@ -239,6 +245,14 @@ function Signup() {
                       setSmallPrice(e.target.value);
                     }}
                   />
+                  <input
+                    type="text"
+                    placeholder="Night price for small room"
+                    value={smallNightPrice}
+                    onChange={(e) => {
+                      setSmallNightPrice(e.target.value);
+                    }}
+                  />
 
                   <input
                     type="text"
@@ -287,6 +301,15 @@ function Signup() {
 
                   <input
                     type="text"
+                    placeholder="Night price for Medium Room"
+                    value={mediumNightPrice}
+                    onChange={(e) => {
+                      setMediumNightPrice(e.target.value);
+                    }}
+                  />
+
+                  <input
+                    type="text"
                     placeholder="upload pictures for Medium Room"
                     value={mediumPic}
                     onChange={(e) => {
@@ -329,7 +352,14 @@ function Signup() {
                       setLargePrice(e.target.value);
                     }}
                   />
-
+                  <input
+                    type="text"
+                    placeholder="Night price for Large room"
+                    value={largeNightPrice}
+                    onChange={(e) => {
+                      setLargeNightPrice(e.target.value);
+                    }}
+                  />
                   <input
                     type="text"
                     placeholder="upload pictures for Large room"

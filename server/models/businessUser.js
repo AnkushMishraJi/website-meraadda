@@ -11,6 +11,9 @@ const roomSchemaSmall = new mongoose.Schema({
   smallCapacity: {
     type: Number,
   },
+  smallNightPrice: {
+    type: String,
+  },
 });
 
 const roomSchemaMedium = new mongoose.Schema({
@@ -23,6 +26,9 @@ const roomSchemaMedium = new mongoose.Schema({
   mediumCapacity: {
     type: Number,
   },
+  mediumNightPrice: {
+    type: String,
+  },
 });
 
 const roomSchemaLarge = new mongoose.Schema({
@@ -34,6 +40,9 @@ const roomSchemaLarge = new mongoose.Schema({
   },
   largeCapacity: {
     type: Number,
+  },
+  largeNightPrice: {
+    type: String,
   },
 });
 

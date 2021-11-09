@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import sideNav from "./BpageComponent/BpageNavbar";
+import { Link } from "react-router-dom";
 
 const HotelDashboard = () => {
   //To refresh every minute
@@ -48,9 +49,12 @@ const HotelDashboard = () => {
   return (
     <div className="wrapper">
       <div className="left-sidebar">
-        <a className="waves-effect waves-light btn #e53935 red darken-1">
-          Block/Unblock Rooms
-        </a>
+        <Link
+          to="/blocker"
+          className="waves-effect waves-light btn #e53935 red darken-1"
+        >
+          Block/Unblock
+        </Link>
         <a className="waves-effect waves-light btn">Edit Hotel</a>
         <a className="waves-effect waves-light btn">Sign out</a>
       </div>
