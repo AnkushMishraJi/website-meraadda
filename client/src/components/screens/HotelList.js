@@ -64,7 +64,11 @@ const HotelList = () => {
         return (
           <div>
             <div className="mycard card">
-              <img src="/cgcg" alt="hotel" />
+              <img
+                src={oneHotel.mainPicUrl}
+                alt={"hotel" + oneHotel.hotelName}
+                style={{ width: 200, height: 200 }}
+              />
               <h5>{oneHotel.hotelName}</h5>
               <h6>{oneHotel.address}</h6>
               <h6>

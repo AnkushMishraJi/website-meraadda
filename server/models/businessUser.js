@@ -6,7 +6,7 @@ const roomSchemaSmall = new mongoose.Schema({
     type: String,
   },
   smallPic: {
-    type: String,
+    type: [String],
   },
   smallCapacity: {
     type: Number,
@@ -21,7 +21,7 @@ const roomSchemaMedium = new mongoose.Schema({
     type: String,
   },
   mediumPic: {
-    type: String,
+    type: [String],
   },
   mediumCapacity: {
     type: Number,
@@ -36,7 +36,7 @@ const roomSchemaLarge = new mongoose.Schema({
     type: String,
   },
   largePic: {
-    type: String,
+    type: [String],
   },
   largeCapacity: {
     type: Number,
