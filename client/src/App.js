@@ -45,7 +45,7 @@ function App() {
       <Route path="/blocker">
         <HotelBlocker />
       </Route>
-      <Route path="/userhotel">
+      <Route path="/userHotel">
         <UserHotel />
       </Route>
       <Route path="/hotelList">

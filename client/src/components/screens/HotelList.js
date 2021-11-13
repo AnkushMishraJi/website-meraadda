@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const HotelList = () => {
   const [hotels, setHotels] = useState([]);
@@ -62,7 +63,7 @@ const HotelList = () => {
         };
 
         return (
-          <div>
+          <Link to={"/userHotel/" + oneHotel.email}>
             <div className="mycard card">
               <img
                 src={oneHotel.mainPicUrl}
@@ -85,7 +86,7 @@ const HotelList = () => {
               </h6>
               <h5>Price:{price()}</h5>
             </div>
-          </div>
+          </Link>
         );
       })}
     </>

@@ -344,4 +344,17 @@ router.get("/getBlockedDates", (req, res) => {
     });
 });
 
+router.get("/userHotel/:email", (req, res) => {
+  const email = req.params.email;
+  console.log(req.params.email);
+  businessUser
+    .find({ email: email })
+    .then((thisHotel) => {
+      return res.status(200).json(thisHotel);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 module.exports = router;
