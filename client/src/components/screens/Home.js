@@ -2,21 +2,32 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../../App.css";
 import { Container, DatePicker } from "react-materialize";
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import TimePicker from "@mui/lab/TimePicker";
 
 const Home = () => {
   const newdate = new Date();
   const history = useHistory();
-  const [date, setDate] = useState(newdate.toDateString());
-  const [timeClock, setTimeClock] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
   const [totalPersons, setTotalPersons] = useState(0);
   const [girls, setGirls] = useState(false);
-  const [isNightParty, setIsNightParty] = useState(false);
 
   const searchFilter = () => {
-    localStorage.setItem("date", date);
     localStorage.setItem("totalPersons", totalPersons);
     localStorage.setItem("girls", girls);
-    localStorage.setItem("isNightParty", isNightParty);
+    console.log(time.toLocaleTimeString());
+    //console.log(isNightParty);
+    console.log(time.toLocaleTimeString("en-US").includes("PM"));
+    localStorage.setItem("time", time.toLocaleTimeString("en-US"));
+    if (time.getHours() >= 18 || time.getHours() < 8) {
+      localStorage.setItem("isNightParty", true);
+    } else {
+      localStorage.setItem("isNightParty", false);
+    }
+
     history.push("/hotelList");
   };
 
@@ -39,13 +50,16 @@ const Home = () => {
               placeholder="Enter Date"
             />
           </Container>
-
-          <input
-            class="timepicker"
-            placeholder="Enter time"
-            value={timeClock}
-            onChange={setTimeClock}
-          />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              label="Select Time"
+              value={time}
+              onChange={(time) => {
+                setTime(time);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
           <input
             type="number"
             placeholder="Total Persons"
