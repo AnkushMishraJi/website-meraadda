@@ -63,7 +63,7 @@ const HotelList = () => {
         };
 
         return (
-          <Link to={"/userHotel/" + oneHotel.email}>
+          <Link to={"/userHotel/" + oneHotel._id}>
             <div className="mycard card">
               <img
                 src={oneHotel.mainPicUrl}

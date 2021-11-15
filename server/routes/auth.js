@@ -344,11 +344,11 @@ router.get("/getBlockedDates", (req, res) => {
     });
 });
 
-router.get("/userHotel/:email", (req, res) => {
-  const email = req.params.email;
-  console.log(req.params.email);
+router.get("/userHotel/:id", (req, res) => {
+  const _id = req.params.id;
+  console.log(req.params.id);
   businessUser
-    .find({ email: email })
+    .find({ _id: _id })
     .then((thisHotel) => {
       return res.status(200).json(thisHotel);
     })
