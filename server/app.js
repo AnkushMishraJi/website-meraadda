@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const PORT = 6000;
 const { MONGOURI } = require("./keys");
+require("dotenv").config();
 
 // require("./models/post");
 
@@ -20,6 +20,6 @@ mongoose.connection.on("error", (err) => {
   console.log("Error in connection", err);
 });
 
-app.listen(PORT, () => {
-  console.log("Server is running on ", PORT);
+app.listen(process.env.PORT, () => {
+  console.log("Server is running on ", process.env.PORT);
 });
