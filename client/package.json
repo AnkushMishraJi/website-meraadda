@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:6000",
+  "proxy": "https://mera-adda.herokuapp.com/",
   "dependencies": {
     "@date-io/moment": "^2.11.0",
     "@emotion/react": "^11.5.0",
