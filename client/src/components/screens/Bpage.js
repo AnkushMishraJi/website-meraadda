@@ -55,7 +55,9 @@ const HotelDashboard = () => {
         >
           Block/Unblock
         </Link>
-        <a className="waves-effect waves-light btn">Edit Hotel</a>
+        <Link to="/BuploadPhoto" className="waves-effect waves-light btn">
+          Upload Photos
+        </Link>
         <a className="waves-effect waves-light btn">Sign out</a>
       </div>
 

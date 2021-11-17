@@ -13,6 +13,7 @@ import UserSignup from "./components/screens/Usignup";
 import HotelBlocker from "./components/screens/BHotelBlocker";
 import UserHotel from "./components/screens/UserHotel";
 import HotelList from "./components/screens/HotelList";
+import UploadPhoto from "./components/screens/BuploadPhoto";
 
 // import { reducer, initialState } from "./reducers/userReducer";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
@@ -50,6 +51,9 @@ function App() {
       </Route>
       <Route path="/hotelList">
         <HotelList />
+      </Route>
+      <Route path="/BuploadPhoto">
+        <UploadPhoto />
       </Route>
     </BrowserRouter>
   );
