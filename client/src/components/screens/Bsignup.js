@@ -95,6 +95,7 @@ function Signup() {
       .then((res) => res.json())
       .then((data) => {
         setMainPicUrl(data.url);
+        console.log(data);
         console.log("photo is uploaded");
       })
       .then(

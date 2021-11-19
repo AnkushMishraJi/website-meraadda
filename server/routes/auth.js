@@ -14,6 +14,9 @@ const clientUser = mongoose.model("ClientUser", userSchema);
 const bookingSchema = require("../models/booking");
 const booking = mongoose.model("Booking", bookingSchema);
 
+const photosSchema = require("../models/photos");
+const photo = mongoose.model("Photo", photosSchema);
+
 const { JWT_SECRET } = require("../keys");
 
 router.get("/", (req, res) => {
@@ -165,6 +168,23 @@ router.post("/booking", (req, res) => {
     .then((Booking) => {
       res.status(201).json({
         message: "User Booking has been generatd",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.post("/photoUpload", (req, res) => {
+  const { title, pic } = req.body;
+  const Photo = new photo({
+    title,
+    pic,
+  });
+  Photo.save()
+    .then((Photo) => {
+      res.status(200).json({
+        message: "Photo uploaded",
       });
     })
     .catch((err) => {
