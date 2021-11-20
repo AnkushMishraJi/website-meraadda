@@ -13,15 +13,17 @@ function UploadPhoto() {
     data.append("file", file);
     data.append("upload_preset", "meraadda-web");
     data.append("cloud_name", "mera-adda");
-    fetch("	https://api.cloudinary.com/v1_1/mera-adda/image/upload", {
+    fetch("https://api.cloudinary.com/v1_1/mera-adda/image/upload", {
       method: "post",
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
         setPicUrl(data.url);
-        console.log(data);
+        console.log(data.url);
+        console.log(JSON.stringify(data));
         console.log("photo is uploaded");
+        console.log(picUrl);
       })
       .then(
         fetch("/photoUpload", {
@@ -39,6 +41,7 @@ function UploadPhoto() {
             if (data.error) {
               M.toast({ html: data.error, classes: "#d32f2f red darken-2" });
             } else {
+              window.location.reload();
               M.toast({
                 html: "Saved Successfuly",
                 classes: "#43a047 green darken-1",

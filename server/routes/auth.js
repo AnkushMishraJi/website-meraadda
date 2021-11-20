@@ -176,10 +176,10 @@ router.post("/booking", (req, res) => {
 });
 
 router.post("/photoUpload", (req, res) => {
-  const { title, pic } = req.body;
+  const { title, picUrl } = req.body;
   const Photo = new photo({
     title,
-    pic,
+    picUrl,
   });
   Photo.save()
     .then((Photo) => {

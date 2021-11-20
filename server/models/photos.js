@@ -5,7 +5,7 @@ const photosSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pic: {
+  picUrl: {
     type: String,
     required: true,
   },
